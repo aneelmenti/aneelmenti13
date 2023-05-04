@@ -33,5 +33,24 @@ class ProductsDelete(View):
             return HttpResponse("product deleted successfully")
         else:
             return HttpResponse("products doesnot exists")
+class ProductsUpdateInput(View):
+    def get(self,request):
+        return render(request,'updateinput.html')
+class ProductsUpdate(View):
+    def get(self,request):
+        p_id = int(request.GET["t1"])
+        p_name = request.GET["t2"]
+        p_cost = float(request.GET["t3"])
+        p_mfdt = request.GET["t4"]
+        p_expdt = request.GET["t5"]
+        p=Products.objects.get(pid=p_id)
+        p.pname=p_name
+        p.pcost=p_cost
+        p.pmfdt=p_mfdt
+        p.pexpdt=p_expdt
+        p.save()
+        return HttpResponse("product updated successfully")
+
+
 
 
